@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit {
     private router: Router,
     private authService: AuthServiceService) {
     authService.viewAllRoles().subscribe((roles: Role[]) => {
-      this.roleList=roles;
+      this.roleList = roles;
     });
   }
 

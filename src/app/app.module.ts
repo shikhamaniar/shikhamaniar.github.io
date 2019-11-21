@@ -13,7 +13,8 @@ import { CreateRoleComponent } from './create-role/create-role.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule, MatCardModule, MatButtonModule,
-  MatSelectModule, MatIconModule, MatCheckboxModule, MatRadioModule, MatTableModule, MatPaginator, MatHeaderRow, MatPaginatorModule, MatFormFieldControl, MatFormFieldModule
+  MatSelectModule, MatIconModule, MatCheckboxModule, MatRadioModule,
+   MatTableModule, MatPaginatorModule, MatFormFieldModule
 } from '@angular/material';
 import { ViewAllRolesComponent } from './view-all-roles/view-all-roles.component';
 

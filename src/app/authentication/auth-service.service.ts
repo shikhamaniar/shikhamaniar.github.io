@@ -9,8 +9,8 @@ import { Role } from '../classes/role';
 })
 export class AuthServiceService {
   baseurl = 'http://localhost:9191';
-  //'http://192.168.2.133:9191';//gauri
-  //'http://192.168.2.185:9191';//bhagyashree
+  // 'http://192.168.2.133:9191';//gauri
+  // 'http://192.168.2.185:9191';//bhagyashree
   //
 
   // Http Headers

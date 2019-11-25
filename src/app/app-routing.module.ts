@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { CreateRoleComponent } from './create-role/create-role.component';
 import { ViewAllRolesComponent } from './view-all-roles/view-all-roles.component';
+import { ViewAllUsersComponent } from './view-all-users/view-all-users.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'role', component: CreateRoleComponent },
-  { path: 'roles', component: ViewAllRolesComponent }];
+  { path: 'roles', component: ViewAllRolesComponent },
+  { path: 'users', component: ViewAllUsersComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

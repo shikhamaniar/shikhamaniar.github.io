@@ -1,7 +1,7 @@
-<mat-card class="card">
-  <mat-card-header>
-    <h2>Sign Up</h2>
-  </mat-card-header>
+<mat-card>
+  <mat-card-title>
+    Sign Up
+  </mat-card-title>
   <mat-card-content>
     <form class="example-form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="example-full-width">
@@ -19,8 +19,9 @@
         </div>
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <input matInput type="text" formControlName="lname" placeholder="Last Name" [ngClass]="{ 'is-invalid': submitted && f.lname.errors }" />
-        <div *ngIf="submitted && !!f.lname.errors" class="invalid-feedback" >
+        <input matInput type="text" formControlName="lname" placeholder="Last Name"
+          [ngClass]="{ 'is-invalid': submitted && f.lname.errors }" />
+        <div *ngIf="submitted && !!f.lname.errors" class="invalid-feedback">
           <div *ngIf="!!f.lname.errors.required">Last Name is required</div>
         </div>
       </mat-form-field>
@@ -41,7 +42,7 @@
           <div *ngIf="!!f.email.errors.required">Email is required</div>
         </div>
       </mat-form-field>
-      <mat-form-field  class="example-full-width">
+      <mat-form-field class="example-full-width">
         <input matInput placeholder="Password" type="password" formControlName="password"
           [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
         <div *ngIf="submitted && !!f.password.errors" class="invalid-feedback">
@@ -50,16 +51,14 @@
         </div>
       </mat-form-field>
 
-        <label>Select the Roles(s):</label>
-        <div *ngFor="let role of roleList">
-          <mat-checkbox class="example-margin" formControlName="roles" value="{{ role.id }}" (change)="onChange(role.id)" >{{ role.name }}</mat-checkbox>
-        </div>
-
-          <button [disabled]="loading" class="btn btn-primary">Sign Up</button>
-      <img *ngIf="loading"
-        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-      <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
+      <label>Select the Roles(s):</label>
+      <div *ngFor="let role of roleList">
+        <mat-checkbox class="example-margin" formControlName="roles" value="{{ role.id }}" (change)="onChange(role.id)">
+          {{ role.name }}</mat-checkbox>
+      </div>
+      <button [disabled]="loading" mat-raised-button color="primary">Sign Up</button>
+      <button class="right-button" [routerLink]="['/login']" mat-button color="basic">Cancel</button>
     </form>
-
   </mat-card-content>
+  <mat-progress-bar *ngIf="loading" mode="buffer"></mat-progress-bar>
 </mat-card>

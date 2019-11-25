@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../authentication/auth-service.service';
 import { first } from 'rxjs/operators';
+import { Permission } from '../classes/permission';
 
 @Component({
   selector: 'app-create-role',
@@ -26,11 +27,16 @@ export class CreateRoleComponent implements OnInit {
 
   permissionsChecked = [];
   arr = [];
-
+// permissionList;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthServiceService) { }
+    private authService: AuthServiceService) {
+    //    authService.viewAllRoles().subscribe((permissions: Permission[]) => {
+    //   this.permissionList =permissions;
+    // });
+
+  }
 
   ngOnInit() {
     this.createRoleForm = this.formBuilder.group({

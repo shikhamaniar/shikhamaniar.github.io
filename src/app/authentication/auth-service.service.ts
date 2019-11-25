@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, retry, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Role } from '../classes/role';
+import { User } from '../classes/user';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthServiceService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer 2c123430-2d85-4f09-bef4-696e835b4764'
+      Authorization: 'Bearer 93719f0d-fa40-4c5d-ba0d-92bcf66e41eb'
     })
   }; // signup
 
@@ -88,6 +89,12 @@ export class AuthServiceService {
   }
   viewAllRoles() {
     return this.http.get<Role[]>(this.baseurl + `/roles`, this.httpOptions)
+      .pipe(
+        retry(2), catchError(this.errorHandl)
+      );
+  }
+  viewAllUsers() {
+    return this.http.get<User[]>(this.baseurl + `/users`, this.httpOptions)
       .pipe(
         retry(2), catchError(this.errorHandl)
       );

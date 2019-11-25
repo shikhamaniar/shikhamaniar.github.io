@@ -14,9 +14,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule, MatCardModule, MatButtonModule,
   MatSelectModule, MatIconModule, MatCheckboxModule, MatRadioModule,
-   MatTableModule, MatPaginatorModule, MatFormFieldModule
+   MatTableModule, MatPaginatorModule, MatFormFieldModule, MatProgressBarModule
 } from '@angular/material';
 import { ViewAllRolesComponent } from './view-all-roles/view-all-roles.component';
+import { ViewAllUsersComponent } from './view-all-users/view-all-users.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ViewAllRolesComponent } from './view-all-roles/view-all-roles.component
     LoginComponent,
     SignUpComponent,
     CreateRoleComponent,
-    ViewAllRolesComponent
+    ViewAllRolesComponent,
+    ViewAllUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,9 @@ import { ViewAllRolesComponent } from './view-all-roles/view-all-roles.component
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule],
+    FormsModule,
+    MatProgressBarModule,
+    BrowserAnimationsModule],
   providers: [AuthServiceService],
   bootstrap: [AppComponent]
 })

@@ -18,6 +18,8 @@ import {
 } from '@angular/material';
 import { ViewAllRolesComponent } from './view-all-roles/view-all-roles.component';
 import { ViewAllUsersComponent } from './view-all-users/view-all-users.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { ViewAllUsersComponent } from './view-all-users/view-all-users.component
     MatInputModule,
     FormsModule,
     MatProgressBarModule,
-    BrowserAnimationsModule],
+    BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [AuthServiceService],
   bootstrap: [AppComponent]
 })

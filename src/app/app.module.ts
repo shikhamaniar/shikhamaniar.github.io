@@ -3,23 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormGroupName } from '@angular/forms';
+import { LoginComponent } from './authentication/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthServiceService } from './authentication/auth-service.service';
-import { APP_BASE_HREF } from '@angular/common';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { CreateRoleComponent } from './create-role/create-role.component';
+import { AuthServiceService } from './services/auth-service.service';
+import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule, MatCardModule, MatButtonModule,
   MatSelectModule, MatIconModule, MatCheckboxModule, MatRadioModule,
    MatTableModule, MatPaginatorModule, MatFormFieldModule, MatProgressBarModule
 } from '@angular/material';
-import { ViewAllRolesComponent } from './view-all-roles/view-all-roles.component';
-import { ViewAllUsersComponent } from './view-all-users/view-all-users.component';
+import { ViewAllUsersComponent } from './authentication/view-all-users/view-all-users.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { CreateRoleComponent } from './roles/create-role/create-role.component';
+import { ViewAllRolesComponent } from './roles/view-all-roles/view-all-roles.component';
 
 @NgModule({
   declarations: [

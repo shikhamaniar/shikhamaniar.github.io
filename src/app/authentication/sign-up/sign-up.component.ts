@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { first, combineAll } from 'rxjs/operators';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Role } from '../../classes/role';
-
+import { Hello } from '../../classes/resp';
+import { phoneEmailValidator } from 'src/app/validators/custom.validator';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  roleList;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthServiceService) {
+    public authService: AuthServiceService) {
     authService.viewAllRoles().subscribe((roles: Role[]) => {
       this.roleList = roles;
     });
@@ -23,15 +24,19 @@ export class SignUpComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() { return this.signUpForm.controls; }
-
+  get phone() {
+    return this.signUpForm.get('phone');
+  }
   get roleIds() {
     return this.signUpForm.get('roleIds');
   }
+  roleList;
   signUpForm: FormGroup;
   loading = false;
   submitted = false;
   rolesChecked = [];
   arr = [];
+  phoneExist = false;
 
   ngOnInit() {
     this.signUpForm = this.formBuilder.group({
@@ -39,9 +44,10 @@ export class SignUpComponent implements OnInit {
       fname: ['', Validators.required],
       lname: ['', Validators.required],
       mname: [''],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.minLength(10), this.emailCheckUnique.bind(this)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email],
+        this.emailCheckUnique.bind(this)],
       enabled: true,
       accountNonExpired: true,
       credentialsNonExpired: true,
@@ -53,8 +59,6 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-
     // stop here if form is invalid
     if (this.signUpForm.invalid) {
       return;
@@ -71,7 +75,7 @@ export class SignUpComponent implements OnInit {
       .subscribe(
         data => {
           // this.alertService.success('Registration successful', true);
-          this.router.navigate(['/login']);
+          this.router.navigate(['']);
         },
         error => {
           // this.alertService.error(error);
@@ -84,5 +88,16 @@ export class SignUpComponent implements OnInit {
     } else {
       this.rolesChecked.push(roleId);
     }
+  }
+  emailCheckUnique(control: FormControl): { [key: string]: boolean } {
+    let response;
+    console.log(control);
+    if (control.value !== '') {
+      this.authService.userExist(control.value).subscribe((res) => {
+        response = res;
+      });
+    }
+    return response;
+
   }
 }

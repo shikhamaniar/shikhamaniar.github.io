@@ -4,21 +4,19 @@ import { map, retry, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Role } from '../classes/role';
 import { User } from '../classes/user';
+import { Hello } from '../classes/resp';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
   baseurl = 'http://localhost:9191';
-  // 'http://192.168.2.133:9191';//gauri
-  // 'http://192.168.2.185:9191';//bhagyashree
-  //
 
   // Http Headers
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer 7d07826b-bc01-4453-9241-1d1559f8a25f'
+      Authorization: 'Bearer f0d43894-6789-4d2c-a5ca-27196ea36e0a'
     })
   }; // signup
 
@@ -27,9 +25,7 @@ export class AuthServiceService {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       'Access-Control-Allow-Origin': '*',
-      // 'Access-Control-Allow-Credentials': 'true',
       Authorization: 'Basic ' + btoa('mobile:pin')
-      // Authorization: `Basic bW9iaWxlOnBpbg==`
     })
   }; // login
 
@@ -99,6 +95,14 @@ export class AuthServiceService {
         retry(2), catchError(this.errorHandl)
       );
   }
-
+  userExist(value: string) {
+    return this.http.get(this.baseurl + `/users/exist/` + value, this.httpOptions)
+      .pipe(
+        retry(2),
+        map(response => {
+          return response;
+        }), catchError(this.errorHandl)
+      );
+  }
 
 }

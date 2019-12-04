@@ -31,7 +31,7 @@
           Phone Number Is Required</mat-error>
         <mat-error *ngIf="!!f.phone.hasError('minlength')">
           Phone Number must be at least 10 Digits</mat-error>
-        <mat-error *ngIf="!f.phone.hasError('success')">
+        <mat-error *ngIf="!!f.phone.hasError('success')">
           Already exist!</mat-error>
 
       </mat-form-field>

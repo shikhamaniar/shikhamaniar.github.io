@@ -37,14 +37,14 @@ export class SignUpComponent implements OnInit {
   rolesChecked = [];
   arr = [];
   phoneExist = false;
-
   ngOnInit() {
     this.signUpForm = this.formBuilder.group({
       username: ['', Validators.required],
       fname: ['', Validators.required],
       lname: ['', Validators.required],
       mname: [''],
-      phone: ['', [Validators.required, Validators.minLength(10), this.emailCheckUnique.bind(this)]],
+      phone: ['', [Validators.required, Validators.minLength(10)]],
+      // this.emailCheckUnique.bind(this)
       password: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email],
         this.emailCheckUnique.bind(this)],
@@ -89,15 +89,13 @@ export class SignUpComponent implements OnInit {
       this.rolesChecked.push(roleId);
     }
   }
-  emailCheckUnique(control: FormControl): { [key: string]: boolean } {
-    let response;
-    console.log(control);
-    if (control.value !== '') {
-      this.authService.userExist(control.value).subscribe((res) => {
-        response = res;
+  emailCheckUnique(value) {
+    if (value !== '') {
+      this.authService.userExist(value).subscribe((res: any) => {
+        res.success === true ? this.phoneExist = true : this.phoneExist = false;
+        // res.success === true ? console.log('true') : console.log('false');
+
       });
     }
-    return response;
-
   }
 }

@@ -16,7 +16,7 @@ export class AuthServiceService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer f0d43894-6789-4d2c-a5ca-27196ea36e0a'
+      Authorization: 'Bearer e0e99bad-5c30-4065-9d02-08d23d5c1967'
     })
   }; // signup
 

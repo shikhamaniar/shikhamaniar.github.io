@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { first, combineAll } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Role } from '../../classes/role';
-import { Hello } from '../../classes/resp';
-import { phoneEmailValidator } from 'src/app/validators/custom.validator';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -20,13 +18,12 @@ export class SignUpComponent implements OnInit {
     authService.viewAllRoles().subscribe((roles: Role[]) => {
       this.roleList = roles;
     });
+
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.signUpForm.controls; }
-  get phone() {
-    return this.signUpForm.get('phone');
-  }
+
   get roleIds() {
     return this.signUpForm.get('roleIds');
   }
@@ -37,17 +34,18 @@ export class SignUpComponent implements OnInit {
   rolesChecked = [];
   arr = [];
   phoneExist = false;
+  emailExist = false;
+  isDisabled = true;
   ngOnInit() {
     this.signUpForm = this.formBuilder.group({
       username: ['', Validators.required],
       fname: ['', Validators.required],
       lname: ['', Validators.required],
       mname: [''],
-      phone: ['', [Validators.required, Validators.minLength(10)]],
+      phone: ['', [Validators.required, Validators.pattern('[6-9]\\d{9}')]],
       // this.emailCheckUnique.bind(this)
       password: ['', [Validators.required, Validators.minLength(6)]],
-      email: ['', [Validators.required, Validators.email],
-        this.emailCheckUnique.bind(this)],
+      email: ['', [Validators.required, Validators.email]],
       enabled: true,
       accountNonExpired: true,
       credentialsNonExpired: true,
@@ -89,12 +87,29 @@ export class SignUpComponent implements OnInit {
       this.rolesChecked.push(roleId);
     }
   }
-  emailCheckUnique(value) {
+  userPhoneUnique(value) {
     if (value !== '') {
       this.authService.userExist(value).subscribe((res: any) => {
-        res.success === true ? this.phoneExist = true : this.phoneExist = false;
-        // res.success === true ? console.log('true') : console.log('false');
-
+        if (res.success === true) {
+          this.phoneExist = true;
+          this.isDisabled = true;
+        } else {
+          this.phoneExist = false;
+          this.isDisabled = false;
+        }
+      });
+    }
+  }
+  userEmailUnique(value) {
+    if (value !== '') {
+      this.authService.userExist(value).subscribe((res: any) => {
+        if (res.success === true) {
+          this.emailExist = true;
+          this.isDisabled = true;
+        } else {
+          this.emailExist = false;
+          this.isDisabled = false;
+        }
       });
     }
   }

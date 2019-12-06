@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { User } from '../../classes/user';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { Role } from '../../classes/role';
@@ -20,7 +20,7 @@ export class ViewAllUsersComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private service: AuthServiceService) {
+  constructor( private service: AuthServiceService) {
 
     service.viewAllUsers().subscribe((users: User[]) => {
       this.dataSource = new MatTableDataSource(users);

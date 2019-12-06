@@ -4,7 +4,7 @@ import { map, retry, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Role } from '../classes/role';
 import { User } from '../classes/user';
-import { Hello } from '../classes/resp';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class AuthServiceService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer e0e99bad-5c30-4065-9d02-08d23d5c1967'
+      Authorization: 'Bearer 5a9a0ba2-c5fc-4eb3-b3ed-3c195e9771df'
     })
   }; // signup
 
@@ -29,7 +29,7 @@ export class AuthServiceService {
     })
   }; // login
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
   login(data) {
     console.log('start');
     return this.http.post(this.baseurl + `/oauth/token`, JSON.stringify(data), this.httpOptions1)
@@ -61,7 +61,6 @@ export class AuthServiceService {
 
   // Error handling
   errorHandl(error) {
-    console.log(error);
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // Get client-side error
@@ -70,6 +69,7 @@ export class AuthServiceService {
       // Get server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
+    this.snackBar.open(error.error_description, 'Error', { duration: 5000 });
     console.log(errorMessage);
     return throwError(errorMessage);
   }

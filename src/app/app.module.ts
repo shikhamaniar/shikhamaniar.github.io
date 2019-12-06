@@ -11,14 +11,18 @@ import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule, MatCardModule, MatButtonModule,
-  MatSelectModule, MatIconModule, MatCheckboxModule, MatRadioModule,
-   MatTableModule, MatPaginatorModule, MatFormFieldModule, MatProgressBarModule
+  MatSelectModule, MatCheckboxModule, MatRadioModule,
+  MatTableModule, MatPaginatorModule, MatFormFieldModule, MatProgressBarModule, MatSnackBar, MatSnackBarModule
 } from '@angular/material';
 import { ViewAllUsersComponent } from './authentication/view-all-users/view-all-users.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CreateRoleComponent } from './roles/create-role/create-role.component';
 import { ViewAllRolesComponent } from './roles/view-all-roles/view-all-roles.component';
+
+
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,9 @@ import { ViewAllRolesComponent } from './roles/view-all-roles/view-all-roles.com
     FormsModule,
     MatProgressBarModule,
     BrowserAnimationsModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatSnackBarModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [AuthServiceService],
   bootstrap: [AppComponent]

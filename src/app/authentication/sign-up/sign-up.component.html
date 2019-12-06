@@ -7,47 +7,53 @@
       <mat-form-field class="example-full-width">
         <input matInput type="text" formControlName="username"
           [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Username" />
-        <mat-error *ngIf="!!f.username.hasError('required')">Username is required</mat-error>
+        <mat-error *ngIf="!!signUpForm.get('username').hasError('required')">Username is required</mat-error>
 
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <input matInput type="text" formControlName="fname" [ngClass]="{ 'is-invalid': submitted && f.fname.errors }"
           placeholder="First Name" />
-        <mat-error *ngIf="!!f.fname.hasError('required')">First Name is required</mat-error>
+        <mat-error *ngIf="!!signUpForm.get('fname').hasError('required')">First Name is required</mat-error>
 
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <input matInput type="text" formControlName="lname" placeholder="Last Name"
           [ngClass]="{ 'is-invalid': submitted && f.lname.errors }" />
-        <mat-error *ngIf="!!f.lname.hasError('required')">Last Name is required</mat-error>
+        <mat-error *ngIf="signUpForm.get('lname').hasError('required')">Last Name is required</mat-error>
 
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <input matInput type="text" formControlName="mname" placeholder="Middle Name" />
       </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput type="text" formControlName="phone" placeholder="Phone"
-          (focusout)="emailCheckUnique(f.phone.value)">
-        <mat-error *ngIf="!!f.phone.hasError('required')">
-          Phone Number Is Required</mat-error>
-        <mat-error *ngIf="!!f.phone.hasError('minlength')">
-          Phone Number must be at least 10 Digits</mat-error>
-        <mat-error *ngIf="phoneExist">
-          Already exist!</mat-error>
 
+      <mat-form-field class="example-full-width">
+        <!-- <span matPrefix>+91 &nbsp;</span> -->
+        <input matInput maxlength="10" formControlName="phone" placeholder="Phone"
+          (blur)="userPhoneUnique(signUpForm.get('phone').value)">
+        <mat-icon color="warn" *ngIf="phoneExist" matTooltip="User already exist with this Phone Number!" matSuffix>
+          error
+        </mat-icon>
+        <mat-error *ngIf="signUpForm.get('phone').hasError('pattern')">
+          Phone has only digits.</mat-error>
+        <mat-error *ngIf="signUpForm.get('phone').hasError('required')">
+          Phone Number Is Required</mat-error>
 
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <input matInput type="text" formControlName="email" placeholder="Email"
-          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-        <mat-error *ngIf="!!f.email.hasError('required')">Email is required</mat-error>
-
+          (blur)="userEmailUnique(signUpForm.get('email').value)" />
+        <mat-icon color="warn" *ngIf="emailExist" matTooltip="User already exist with this Email Id!" matSuffix>error
+        </mat-icon>
+        <mat-error *ngIf="signUpForm.get('email').hasError('email')">Email is not Proper</mat-error>
+        <mat-error *ngIf="signUpForm.get('email').hasError('required')">Email is required</mat-error>
       </mat-form-field>
+
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Password" type="password" formControlName="password" />
-        <mat-error *ngIf="!!f.password.hasError('required')">Password is required</mat-error>
-        <mat-error *ngIf="!!f.password.hasError('minlength')">Password must be at least 6 characters</mat-error>
+        <mat-error *ngIf="signUpForm.get('password').hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="signUpForm.get('password').hasError('minlength')">Password must be at least 6 characters
+        </mat-error>
       </mat-form-field>
 
       <label>Select the Roles(s):</label>
@@ -55,11 +61,12 @@
         <mat-checkbox class="example-margin" formControlName="roles" value="{{ role.id }}" (change)="onChange(role.id)">
           {{ role.name }}</mat-checkbox>
       </div>
-      <button [disabled]="loading" mat-raised-button color="primary">Sign Up</button>
+      <button *ngIf="!loading" [disabled]="isDisabled" mat-raised-button color="primary">Sign Up</button>
       <button class="right-button" [routerLink]="['/roles']" mat-button color="basic">Roles</button>
 
       <button class="right-button" [routerLink]="['']" mat-button color="basic">Cancel</button>
     </form>
   </mat-card-content>
   <mat-progress-bar *ngIf="loading" mode="buffer"></mat-progress-bar>
+
 </mat-card>
